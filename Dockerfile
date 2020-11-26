@@ -1,8 +1,8 @@
-FROM rust:1.43-alpine as builder
+FROM rust:1.48-alpine as builder
 
-LABEL maintainer="metowolf <i@i-meto.com>"
+LABEL maintainer="Berny Linville <bernylinville@devopsthink.org>"
 
-ARG NGINX_VERSION=1.19.0
+ARG NGINX_VERSION=1.18.0
 # ARG OPENSSL_VERSION=1.1.1d
 
 RUN set -ex \
@@ -27,7 +27,7 @@ RUN set -ex \
     && curl -fSL https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc -o nginx.tar.gz.asc \
     && export GNUPGHOME="$(mktemp -d)"; \
         for key in \
-            B0F4253373F8F6F510D42178520A9993A1C052F8 \
+            573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
         ; do \
             gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=10 --recv-keys "$key" || \
             gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --keyserver-options timeout=10 --recv-keys "$key" || \
@@ -136,7 +136,7 @@ COPY config/logrotate /etc/nginx/logrotate
 
 FROM alpine:3.12
 
-LABEL maintainer="metowolf <i@i-meto.com>"
+LABEL maintainer="Berny Linville <bernylinville@devopsthink.org>"
 
 COPY --from=builder /etc/nginx /etc/nginx
 COPY --from=builder /usr/sbin/nginx /usr/sbin/nginx

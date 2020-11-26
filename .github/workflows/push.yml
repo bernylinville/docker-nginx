@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@v1
     - uses: jerray/publish-docker-action@master
       with:
-        username: metowolf
+        username: bernylinville
         password: ${{ secrets.DOCKER_TOKEN }}
-        repository: metowolf/nginx
+        repository: bernylinville/nginx
         auto_tag: true
